@@ -90,7 +90,7 @@ CREATE INDEX idx_survey_results_name ON survey_results(last_name, first_name);
 ```
 
 ### Step 3: Get Connection String
-1. In your database settings, copy the **Connection String**
+1. In your database settings, copy the **Connection String**ok
 2. Vercel automatically sets `POSTGRES_URL` environment variable
 
 ### Step 4: Install Dependencies

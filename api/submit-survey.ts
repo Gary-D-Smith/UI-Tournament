@@ -1,7 +1,5 @@
 import type { VercelRequest, VercelResponse } from '@vercel/node'
-
-// This API route will work with Supabase or any PostgreSQL database
-// For Vercel Postgres, you can use @vercel/postgres instead
+import { createClient } from '@supabase/supabase-js'
 
 export default async function handler(req: VercelRequest, res: VercelResponse) {
   if (req.method !== 'POST') {
@@ -16,67 +14,35 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
       return res.status(400).json({ error: 'Missing required fields' })
     }
 
-    // Option 1: Using Supabase (recommended for free tier)
-    // Uncomment and configure if using Supabase:
-    /*
-    import { createClient } from '@supabase/supabase-js'
-    
-    const supabase = createClient(
-      process.env.SUPABASE_URL!,
-      process.env.SUPABASE_ANON_KEY!
-    )
+    // Initialize Supabase client
+    const supabaseUrl = process.env.SUPABASE_URL
+    const supabaseKey = process.env.SUPABASE_ANON_KEY
 
+    if (!supabaseUrl || !supabaseKey) {
+      throw new Error('Supabase environment variables are not set')
+    }
+
+    const supabase = createClient(supabaseUrl, supabaseKey)
+
+    // Insert survey data into Supabase
+    // Supabase automatically converts JavaScript objects to JSONB
     const { error } = await supabase
       .from('survey_results')
       .insert({
         first_name: data.firstName,
         last_name: data.lastName,
         timestamp: data.timestamp,
-        round1_results: JSON.stringify(data.round1),
-        tournament_results: JSON.stringify(data.tournamentResults),
-        final_ranking: JSON.stringify(data.finalRanking),
-        complete_ranking_table: JSON.stringify(data.completeRankingTable),
-        summary: JSON.stringify(data.summary),
+        round1_results: data.round1,
+        tournament_results: data.tournamentResults,
+        final_ranking: data.finalRanking,
+        complete_ranking_table: data.completeRankingTable,
+        summary: data.summary,
       })
 
     if (error) {
+      console.error('Supabase error:', error)
       throw error
     }
-    */
-
-    // Option 2: Using Vercel Postgres
-    // Uncomment and configure if using Vercel Postgres:
-    /*
-    import { sql } from '@vercel/postgres'
-    
-    await sql`
-      INSERT INTO survey_results (
-        first_name, last_name, timestamp,
-        round1_results, tournament_results, final_ranking,
-        complete_ranking_table, summary
-      ) VALUES (
-        ${data.firstName},
-        ${data.lastName},
-        ${data.timestamp},
-        ${JSON.stringify(data.round1)},
-        ${JSON.stringify(data.tournamentResults)},
-        ${JSON.stringify(data.finalRanking)},
-        ${JSON.stringify(data.completeRankingTable)},
-        ${JSON.stringify(data.summary)}
-      )
-    `
-    */
-
-    // For now, just log the data (remove this in production)
-    console.log('Survey submission received:', {
-      firstName: data.firstName,
-      lastName: data.lastName,
-      timestamp: data.timestamp,
-      rankingTableRows: data.completeRankingTable.length,
-    })
-
-    // TODO: Replace with actual database insert once database is configured
-    // For testing, you can temporarily store in a file or use a simple database
 
     return res.status(200).json({ 
       success: true,
