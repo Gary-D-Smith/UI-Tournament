@@ -37,13 +37,6 @@ function App() {
     setPhase('name')
   }
 
-  const handleReset = () => {
-    setPhase('intro')
-    setUserInfo({ firstName: '', lastName: '' })
-    setRound1Results([])
-    setTournamentResults([])
-  }
-
   return (
     <div className="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100">
       <div className="container mx-auto px-4 py-8">
