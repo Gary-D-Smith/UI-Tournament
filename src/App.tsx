@@ -43,17 +43,17 @@ function App() {
         {phase === 'intro' && (
           <div className="max-w-2xl mx-auto bg-white rounded-lg shadow-lg p-8">
             <h1 className="text-4xl font-bold text-gray-800 mb-4 text-center">
-              PSY360 Survey Platform
+              UI Tournament ⚔️
             </h1>
             <p className="text-lg text-gray-600 mb-6">
-              Welcome to the tournament-style survey. This study consists of two rounds:
+              Welcome to a study about the cognition of UI componets. This study will consist of two rounds:
             </p>
             <ul className="list-disc list-inside space-y-2 text-gray-700 mb-6">
-              <li><strong>Round 1:</strong> Select UI version A or B for 5 component designs</li>
-              <li><strong>Round 2:</strong> Swiss-style tournament with 32 UI designs</li>
+              <li><strong>Round 1:</strong> Select version A or B for 5 component designs</li>
+              <li><strong>Round 2:</strong> Swiss-style tournament with 32 complete UI designs</li>
             </ul>
             <p className="text-sm text-gray-500 mb-6">
-              Your responses will help us understand UI design preferences. Please take your time and make thoughtful selections.
+              Your responses will help us understand UI design preferences. <strong>Please take your time and make thoughtful selections.</strong>
             </p>
             <button
               onClick={handleStart}
