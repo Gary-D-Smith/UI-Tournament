@@ -46,7 +46,7 @@ function App() {
               UI Tournament ⚔️
             </h1>
             <p className="text-lg text-gray-600 mb-6">
-              Welcome to a study about the cognition of UI componets. This study will consist of two rounds:
+              Welcome to a study about the cognition of UI components. This study will consist of two rounds:
             </p>
             <ul className="list-disc list-inside space-y-2 text-gray-700 mb-6">
               <li><strong>Round 1:</strong> Select version A or B for 5 component designs</li>
